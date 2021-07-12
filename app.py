@@ -8,7 +8,7 @@ app = Flask(__name__, template_folder=TEMPLATES, static_folder=STATIC)
 
 @app.route('/')
 def helloWorld():
-    return 'Sejam bem-vindos!'
+    return render_template('home.html')
 
 @app.route('/home')
 def home():
