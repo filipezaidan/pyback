@@ -8,12 +8,12 @@ app = Flask(__name__, template_folder=TEMPLATES, static_folder=STATIC)
 
 @app.route('/')
 def helloWorld():
-    return 'Hello World!'
+    return 'Sejam bem-vindos!'
 
 @app.route('/home')
 def home():
     data = datetime.datetime.now()
-    usuarios = ['Flávio', 'Isabella', 'João', 'Maria']
+    usuarios = ['Filipe Zaidan', 'David Glauber', 'Rodrigo Cézar']
     mostrarUsuarios = True
     return render_template('home.html', dataAtual=data, usuarios=usuarios, mostrarUsuarios=mostrarUsuarios)
 
