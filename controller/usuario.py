@@ -1,4 +1,4 @@
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, redirect, url_for
 from config import bd
 from model.usuario import Usuario
 
@@ -7,15 +7,9 @@ STATIC = './static'
 
 usuario_blueprint = Blueprint('usuarios', __name__, template_folder=TEMPLATES, static_folder=STATIC)
 
-@usuario_blueprint.route('/salvarUsuario', methods=['POST'])
-def salvarUsuario():
-    email = request.form.get('email')
-    nome = request.form.get('nome')
 
-    usuario = Usuario(nome, email)
-    bd.session.add(usuario)
-    bd.session.commit()
-    return 'Ok, usuário salvo!'
+    
+
 
 @usuario_blueprint.route('/consultarUsuario')
 def consultarUsuario():

@@ -23,10 +23,19 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Faça login para inciar sua sessão</p>
+      
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <div class="info-box justify-content-center">
+            {{ messages[0] }}
+          </div>
+      {% endif %}
+      {% endwith %}
 
-      <form action="/login" method="post">
+
+      <form action="/dashboard" method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" required> 
+          <input type="email" class="form-control" placeholder="Email" required name='email'> 
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -34,7 +43,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Senha" required>
+          <input type="password" class="form-control" placeholder="Senha" name='password' required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
