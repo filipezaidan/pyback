@@ -7151,13 +7151,13 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  background-color: #1c0c2b !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,
 button.bg-info:hover,
 button.bg-info:focus {
-  background-color: #117a8b !important;
+  background-color: #1c0c2b !important;
 }
 
 .bg-warning {
@@ -11273,7 +11273,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
 }
 
 .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]) {
-  background-color: #343a40;
+  background-color: #1c0c2b;
 }
 
 .layout-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
@@ -11281,7 +11281,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
 }
 
 .layout-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
-  background-color: #343a40;
+  background-color: #1c0c2b;
 }
 
 .layout-navbar-fixed .wrapper .sidebar-light-secondary .brand-link:not([class*="navbar"]) {
@@ -13438,7 +13438,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 }
 
 [class*="sidebar-dark-"] {
-  background-color: #343a40;
+  background-color: #1c0c2b;
 }
 
 [class*="sidebar-dark-"] .user-panel a:hover {
@@ -14185,7 +14185,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 [class*="sidebar-dark"] .form-control-sidebar,
 [class*="sidebar-dark"] .btn-sidebar {
-  background-color: #3f474e;
+  background-color: #1c0c2b;
   border: 1px solid #56606a;
   color: white;
 }
@@ -46255,7 +46255,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  background-color: #1c0c2b !important;
 }
 
 .bg-info,
