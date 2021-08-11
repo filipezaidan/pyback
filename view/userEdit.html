@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <style>
+        .input {
+            -moz-border-radius-topright: 30px;
+            -webkit-border-top-right-radius: 30px;
+            border-top-right-radius: 30px;
+            -moz-border-radius-bottomright: 30px;
+            -webkit-border-bottom-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            border: 1px solid #3011EF;
+            outline:0;
+            height:25px;
+            width: 275px;
+            padding-right:10px;
+            margin-top: 16px;
+        }
+        .divInput {
+            margin-left: 20%;
+        }
+        .buttonSave {
+            -webkit-box-shadow: 11px 10px 21px 4px rgba(0,0,0,0.52); 
+            box-shadow: 11px 10px 21px 4px rgba(0,0,0,0.52);
+            transition: -webkit-box-shadow box-shadow 2s;
+        }
+        .buttonSave:hover {
+            -webkit-box-shadow: inset 11px 10px 21px 4px rgba(0,0,0,0.52); 
+            box-shadow: inset 11px 10px 21px 4px rgba(0,0,0,0.52);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div style="display: flex; background-color: #3011EF; width: 100%; height: 10%; border-radius: 20px; justify-content: flex-end;">
+            <i class="fas fa-times" style="size: 400px; margin-top: 2% ;color:white; margin-right: 78%;"></i>
+            <h3 style="color: white; padding: 10px; margin-right: 30px;">[NOME DO USER AQUI]</h3>
+        </div>
+        
+        <div>
+            <h1 style="text-align: center;">[NOME DO USER AQUI]</h1>
+            <img style="border-radius: 50px; width: 150px; height: 150px; margin-left: 45%;" class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="Sua Foto">
+            
+            <div class="divInput" style="display: flex; flex-direction: row">
+                <h3 style="margin-left: 100px;">Nome:</h3>
+                <input class="input" placeholder="Digite seu nome">      
+            </div>
+
+            <div class="divInput" style="display: flex; flex-direction: row">
+                <h3 style="margin-left: 100px;">Status:</h3>
+                <h5 style="color: rgb(122, 197, 9);">Online</h5>
+                <h5 style="color: rgb(202, 202, 6); margin-left: 20px;">Não Pertube</h5>
+                <h5 style="color: red; margin-left: 20px;">Indisponível</h5>
+            </div>
+
+            <div class="divInput" style="display: flex; flex-direction: row">
+                <h3 style="margin-left: 100px;">Descrição:</h3>
+                <input class="input" placeholder="Digite a sua Descrição">      
+            </div>
+
+            <button class="buttonSave" style="margin-left: 42%; border: none; background-color: #3011EF; width: 200px; height: 70px; border-radius: 40px">Salvar</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -39,6 +39,10 @@ def dashboard():
 def register():
     return render_template('register.html')
 
+@app.route('/changeuserdata')
+def userEdit():
+    return render_template('userEdit.html')
+
 @app.route('/createAccount', methods=['POST'])
 def createAccount():
     nome = request.form.get('name')
