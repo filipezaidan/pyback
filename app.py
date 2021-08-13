@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, login_required, current_user
 from config import bd
 from controller.usuario import usuario_blueprint
 from model.usuario import Usuario
@@ -15,12 +16,27 @@ app.config['SECRET_KEY'] = 'secret-key-goes-here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./dados.db'
 bd.init_app(app)
 
+login_manager = LoginManager()
+login_manager.login_view = 'login'
+login_manager.login_message =  'Faça login para ter acesso a plataforma!'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    # since the user_id is just the primary key of our user table, use it in the query for the user
+   return Usuario.query.get(int(user_id))
+
 with app.app_context():
     bd.create_all()
 
 @app.route('/')
 def login():
     return render_template('login.html')
+@app.route('/home')
+@login_required
+def home():
+    return render_template('index.html', user=current_user.nome)
+
 
 @app.route('/dashboard', methods=['POST'])
 def dashboard():
@@ -32,16 +48,19 @@ def dashboard():
     if not user  or not check_password_hash(user.password, password):
         flash('Por favor, verifique suas credenciais e tente novamente!')
         return redirect(url_for('login'))
-
-    return render_template('index.html', user=user)
+    login_user(user)
+    #return render_template('index.html', user=user)
+    return redirect(url_for('home'))
 
 @app.route('/register')
 def register():
     return render_template('register.html')
 
-@app.route('/changeuserdata')
-def userEdit():
-    return render_template('userEdit.html')
+@app.route('/profile')
+@login_required
+def editProfile():
+    
+    return render_template('profile.html',user=current_user.nome)
 
 @app.route('/createAccount', methods=['POST'])
 def createAccount():
@@ -64,4 +83,4 @@ def createAccount():
     return redirect(url_for('login'))
 
 
-#app.run(host='0.0.0.0', port=5000)
+app.run(host='0.0.0.0', port=5000)
