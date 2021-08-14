@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, login_required, current_user
+from flask_login import LoginManager, login_user, login_required, current_user, logout_user
+from sqlalchemy import update
 from config import bd
 from controller.usuario import usuario_blueprint
 from model.usuario import Usuario
@@ -18,7 +19,7 @@ bd.init_app(app)
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
-login_manager.login_message =  'Faça login para ter acesso a plataforma!'
+login_manager.login_message = 'Faça login para ter acesso a plataforma!'
 login_manager.init_app(app)
 
 @login_manager.user_loader
@@ -31,11 +32,17 @@ with app.app_context():
 
 @app.route('/')
 def login():
-    return render_template('login.html')
+    if current_user.is_active == True:
+        #CASO TENHA CONTRA LOGADA,REDIRECIONA AUTOMATICAMENTE PARA A ROTA HOME
+        return redirect(url_for('home'))
+    else:
+        # CASO NÃP TENHA CONTA LOGADA, RENDERIZA A PAGINA "LOGIN"
+        return render_template('login.html')
+
 @app.route('/home')
 @login_required
 def home():
-    return render_template('index.html', user=current_user.nome)
+    return render_template('index.html', user=current_user)
 
 
 @app.route('/dashboard', methods=['POST'])
@@ -46,10 +53,9 @@ def dashboard():
     user = Usuario.query.filter_by(email=email).first()
 
     if not user  or not check_password_hash(user.password, password):
-        flash('Por favor, verifique suas credenciais e tente novamente!')
+        flash('Por favor, verifique suas credenciais e tente novamente!', 'error')
         return redirect(url_for('login'))
     login_user(user)
-    #return render_template('index.html', user=user)
     return redirect(url_for('home'))
 
 @app.route('/register')
@@ -58,9 +64,22 @@ def register():
 
 @app.route('/profile')
 @login_required
-def editProfile():
+def profile():
     
-    return render_template('profile.html',user=current_user.nome)
+    return render_template('profile.html',user=current_user)
+@app.route('/editProfile/<int:id>', methods=['POST'])
+@login_required
+def editProfile(id):
+        name = request.form.get('name')
+
+
+        user = Usuario.query.filter_by(id=id).first()
+        user.nome = name
+        bd.session.commit()
+        flash("Perfil atualizado com sucesso!", "success")
+        logout_user()
+
+        return redirect(url_for('login'))
 
 @app.route('/createAccount', methods=['POST'])
 def createAccount():
@@ -71,7 +90,7 @@ def createAccount():
     user = Usuario.query.filter_by(email=email).first()
 
     if user: # if a user is found, we want to redirect back to signup page so user can try again
-        flash('Endereço de e-mail já existe')
+        flash('Conta com esse endereço de e-mail já existe', 'info')
         return redirect(url_for('register'))
         #return render_template('register.html', msg='Email em uso')
 
@@ -79,7 +98,7 @@ def createAccount():
     usuario = Usuario(nome, email, password=generate_password_hash(password, method='sha256'))
     bd.session.add(usuario)
     bd.session.commit()
-    flash('Conta criada com sucesso!')
+    flash('Conta criada com sucesso!', 'success')
     return redirect(url_for('login'))
 
 

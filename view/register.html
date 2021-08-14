@@ -24,9 +24,9 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Criar conta</p>
 
-      {% with messages = get_flashed_messages() %}
+      {% with messages = get_flashed_messages(category_filter=["info"]) %}
       {% if messages %}
-          <div class="info-box justify-content-center">
+          <div class="alert alert-info text-center" role="alert">
             {{ messages[0] }}
           </div>
       {% endif %}

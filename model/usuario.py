@@ -3,6 +3,8 @@ from flask_login import UserMixin
 from config import bd
 
 class Usuario(UserMixin, bd.Model):
+    __tablename__ = 'users'
+
     id = bd.Column(bd.Integer, primary_key=True)
     nome = bd.Column(bd.String(256))
     email = bd.Column(bd.String(128), unique=True)

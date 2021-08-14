@@ -176,10 +176,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="dist/img/user.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="/changeuserdata" class="d-block"></a>
+          <a href="/profile" class="d-block">{{user.nome}}</a>
         </div>
       </div>
 
@@ -339,16 +339,16 @@
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
-                     src="../../dist/img/user4-128x128.jpg"
+                     src="../../dist/img/user.png"
                      alt="User profile picture">
               </div>
 
-              <h3 class="profile-username text-center">Nina Mcintire</h3>
+              <h3 class="profile-username text-center">{{user.nome}}</h3>
 
 
-              <form action="#" method="POST">
+              <form action="editProfile/{{user.id}}" method="POST">
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Nome" required name='name' value={{user}}> 
+                  <input type="text" class="form-control" placeholder="Digite seu nome" required name='name' value=""> 
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-user"></span>
