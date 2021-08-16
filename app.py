@@ -40,8 +40,11 @@ def login():
         return render_template('login.html')
 
 @app.route('/home')
-@login_required
 def home():
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return render_template('login.html')
     return render_template('index.html', user=current_user)
 
 
@@ -62,14 +65,33 @@ def dashboard():
 def register():
     return render_template('register.html')
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash("Conta deslogada com sucesso!", 'success')
+    return redirect(url_for('login'))
+
+@app.route('/recoverPassword')
+def recoverPassword():
+    flash('Função em fase de desenvolvimento', 'info')
+    return render_template('recoverPassword.html')
+
 @app.route('/profile')
-@login_required
 def profile():
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return render_template('login.html')
     
     return render_template('profile.html',user=current_user)
 @app.route('/editProfile/<int:id>', methods=['POST'])
-@login_required
 def editProfile(id):
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return render_template('login.html')
+    else:
+    
         name = request.form.get('name')
 
 
@@ -102,4 +124,4 @@ def createAccount():
     return redirect(url_for('login'))
 
 
-#app.run(host='0.0.0.0', port=5000)
+app.run(host='0.0.0.0', port=5000)
