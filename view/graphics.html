@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>STRUDY | Perfil</title>
+  <title>STRUDY | Gráficos</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -39,7 +39,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/home" class="nav-link">Tela Inicial</a>
+        <a href="/home" class="nav-link">Gráfico de Desempenho</a>
       </li>
     </ul>
 
@@ -237,7 +237,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="/graphics" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Gráficos de Aproveitamento
@@ -263,7 +263,7 @@
               <li class="nav-item">
                 <a href="/account" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Conta</p>
+                  <p>Gráficos de Desempenho</p>
                 </a>
               </li>
             </ul>
@@ -287,11 +287,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Editar Perfil</h1>
+            <h1 class="m-0">Gráficos de Desempenho</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Perfil</a></li>
+              <li class="breadcrumb-item"><a href="#">Gráficos de Desempenho</a></li>
               <li class="breadcrumb-item active">Strudy</li>
             </ol>
           </div><!-- /.col -->
@@ -303,76 +303,25 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid col-md-4">
-        <div class="col-md">
+        <div class="card card-danger">
+          <div class="card-header">
+            <h3 class="card-title">Seus Acertos</h3>
 
-          <!-- Profile Image -->
-          <div class="card card-primary card-outline">
-            <h3 class="profile-username text-center">Dados do perfil</h3>
-
-            <div class="card-body box-profile ">
-              <div class="text-center mb-3">
-                <img class="profile-user-img img-fluid img-circle"
-                     src="../../dist/img/user.png"
-                     alt="User profile picture">
-              </div>
-
-              {% with messages = get_flashed_messages(category_filter=["success"]) %}
-                {% if messages %}
-                   <div class="alert alert-success text-center" role="alert">
-                    {{ messages[0] }}
-                  </div>
-                {% endif %}
-              {% endwith %}
-
-              <form action="editProfile/{{user.id}}" method="POST">
-                <h4 class="profile-username">Nome</h3>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control"  required name='name' value="{{user.nome}}"> 
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-user"></span>
-                    </div>
-                  </div>
-                </div>
-                <h4 class="profile-username">Email</h3>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control"  required name='email' value="{{user.email}}"> 
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-envelope"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class='row justify-content-center mb-3'>
-                  <!-- /.col -->
-                    <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Atualizar</button>
-                    
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Salvar alterações</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Você deseja salvar as alterações?
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                            <button type="submit" class="btn btn-primary">Sim</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  <!-- /.col -->
-                </div>
-              </form>
-
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
             </div>
-            <!-- /.card-body -->
+          </div>
+          <div class="card-body">
+            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          </div>
+          <!-- /.card-body -->
+        </div>
+
           </div>
           <!-- /.card -->
 
@@ -432,5 +381,38 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+<script>
+  $(function () {
+  var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+    var donutData        = {
+      labels: [
+          'Português',
+          'Inglês',
+          'Biologia',
+          'Redação',
+          'Matemática',
+          'Química',
+      ],
+      datasets: [
+        {
+          data: [700,500,400,600,300,100],
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }
+      ]
+    }
+    var donutOptions     = {
+      maintainAspectRatio : false,
+      responsive : true,
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    new Chart(donutChartCanvas, {
+      type: 'doughnut',
+      data: donutData,
+      options: donutOptions
+    })
+  })
+</script>
 </body>
 </html>

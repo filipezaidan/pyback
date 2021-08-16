@@ -77,6 +77,10 @@ def testsDone():
 def testsPending():
     return render_template('testsPending.html', user=current_user)
 
+@app.route('/graphics')
+def graphics():
+    return render_template('graphics.html', user=current_user)
+
 @app.route('/logout')
 def logout():
     logout_user()
