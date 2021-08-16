@@ -42,7 +42,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Tela Inicial</a>
+        <a href="/home" class="nav-link">Tela Inicial</a>
       </li>
     </ul>
 
@@ -171,11 +171,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="dist/img/StrudLogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Strudy</span>
-    </a>
-
+  
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -267,27 +263,9 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Gráficos de Aproveitamento
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Atividades Pendentes
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Atividades Completas
+                Atividades
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -296,32 +274,60 @@
               <li class="nav-item">
                 <a href="pages/tables/simple.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
+                  <p>Pendentes</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
               </li>
               <li class="nav-item">
                 <a href="pages/tables/jsgrid.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
+                  <p>Concluídas</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Gráficos de Aproveitamento
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-cog"></i>
+              <p>
+                Configurações
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/profile" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Perfil</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/account" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Conta</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
             <a href="{{ url_for('logout') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-angle-right"CC></i>
               <p>
                 Sair
-                <i class="fa fa-sign-out right"></i>
               </p>
             </a>
           </li>
+        </ul>
+      </nav>
   </aside>
 
   <!-- Content Wrapper. Contains page content -->

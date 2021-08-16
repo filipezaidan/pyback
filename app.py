@@ -76,6 +76,33 @@ def recoverPassword():
     flash('Função em fase de desenvolvimento', 'info')
     return render_template('recoverPassword.html')
 
+@app.route('/account')
+def account():
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return render_template('login.html')
+    
+    return render_template('account.html',user=current_user)
+
+@app.route('/deleteAccount/<int:id>', methods=['POST'])
+def deleteAccount(id):
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return render_template('login.html')
+    else:
+        
+        user = Usuario.query.filter_by(id=id).first()
+        bd.session.delete(user)
+        bd.session.commit()
+        logout_user()
+        flash("Conta deletada com sucesso!", "success")
+
+        return redirect(url_for('login'))
+
+
+
 @app.route('/profile')
 def profile():
     if current_user.is_active == False:
@@ -93,15 +120,16 @@ def editProfile(id):
     else:
     
         name = request.form.get('name')
+        email = request.form.get('email')
 
 
         user = Usuario.query.filter_by(id=id).first()
         user.nome = name
+        user.email = email
         bd.session.commit()
         flash("Perfil atualizado com sucesso!", "success")
-        logout_user()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('profile'))
 
 @app.route('/createAccount', methods=['POST'])
 def createAccount():
