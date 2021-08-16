@@ -65,6 +65,18 @@ def dashboard():
 def register():
     return render_template('register.html')
 
+@app.route('/savedLives')
+def savedlives():
+    return render_template('savedLives.html', user=current_user)
+
+@app.route('/testsDone')
+def testsDone():
+    return render_template('testsDone.html', user=current_user)
+
+@app.route('/testsPending')
+def testsPending():
+    return render_template('testsPending.html', user=current_user)
+
 @app.route('/logout')
 def logout():
     logout_user()
@@ -152,4 +164,4 @@ def createAccount():
     return redirect(url_for('login'))
 
 
-#app.run(host='0.0.0.0', port=5000)
+app.run(host='0.0.0.0', port=5000)
