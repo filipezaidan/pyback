@@ -45,7 +45,22 @@ def home():
         print('nao tem conta')
         flash('Faça login para ter acesso a plataforma', 'error')
         return render_template('login.html')
+
+    if current_user.email == "admin@admin.com":
+        return redirect(url_for('admin'))
     return render_template('index.html', user=current_user)
+@app.route('/admin')
+def admin():
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return redirect(url_for('login'))
+
+    if current_user.is_active == True and current_user.email != 'admin@admin.com':
+        flash('Você não tem privilégios administrativos!', 'error')
+        return redirect(url_for('home'))
+    usuarios = Usuario.query.all()
+    return render_template('mostraUsuarios.html', usuarios=usuarios)
 
 
 @app.route('/dashboard', methods=['POST'])
@@ -58,6 +73,10 @@ def dashboard():
     if not user  or not check_password_hash(user.password, password):
         flash('Por favor, verifique suas credenciais e tente novamente!', 'error')
         return redirect(url_for('login'))
+    
+    if user.email == "admin@admin.com" and check_password_hash(user.password, "adminadmin"):
+        login_user(user)
+        return redirect(url_for('admin'))
     login_user(user)
     return redirect(url_for('home'))
 
@@ -116,8 +135,19 @@ def deleteAccount(id):
         flash("Conta deletada com sucesso!", "success")
 
         return redirect(url_for('login'))
-
-
+@app.route('/deleteAccountAdmin/<int:id>', methods=['POST'])
+def deleteAccountAdmin(id):
+    if current_user.is_active == False:
+        print('nao tem conta')
+        flash('Faça login para ter acesso a plataforma', 'error')
+        return render_template('login.html')
+    else:
+        
+        user = Usuario.query.filter_by(id=id).first()
+        bd.session.delete(user)
+        bd.session.commit()
+        
+        return redirect(url_for('admin'))
 
 @app.route('/profile')
 def profile():
@@ -146,6 +176,21 @@ def editProfile(id):
         flash("Perfil atualizado com sucesso!", "success")
 
         return redirect(url_for('profile'))
+@app.route('/editProfileAdmin/<int:id>', methods=['POST'])
+def editProfileAdmin(id):
+    
+    
+        name = request.form.get('name')
+        email = request.form.get('email')
+
+
+        user = Usuario.query.filter_by(id=id).first()
+        user.nome = name
+        user.email = email
+        bd.session.commit()
+        flash("Perfil atualizado com sucesso!", "success")
+
+        return redirect(url_for('admin'))
 
 @app.route('/createAccount', methods=['POST'])
 def createAccount():
@@ -167,5 +212,8 @@ def createAccount():
     flash('Conta criada com sucesso!', 'success')
     return redirect(url_for('login'))
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
-#app.run(host='0.0.0.0', port=5000)
+# app.run(host='0.0.0.0', port=5000)
