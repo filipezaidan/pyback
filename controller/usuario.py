@@ -16,7 +16,8 @@ usuario_blueprint = Blueprint('usuarios', __name__, template_folder=TEMPLATES, s
 #     usuario_01 = bd.session.query(Usuario).get(1)
 #     return 'Usuário com ID = ' + str(usuario_01.id) + '; Nome = ' + usuario_01.nome + '.'
 
-@usuario_blueprint.route('/consultarUsuarios')
-def consultarUsuarios():
-    usuarios = Usuario.query.all()
-    return render_template('listarUsuarios.html', usuarios=usuarios)
+
+# @usuario_blueprint.route('/consultarUsuarios')
+# def consultarUsuarios():
+#     usuarios = Usuario.query.all()
+#     return render_template('listarUsuarios.html', usuarios=usuarios)

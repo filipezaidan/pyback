@@ -57,7 +57,7 @@ def admin():
         return redirect(url_for('login'))
 
     if current_user.is_active == True and current_user.email != 'admin@admin.com':
-        flash('Você não tem privilégios administrativos!', 'error')
+        # flash('Você não tem privilégios administrativos!', 'error')
         return redirect(url_for('home'))
     usuarios = Usuario.query.all()
     return render_template('mostraUsuarios.html', usuarios=usuarios)
